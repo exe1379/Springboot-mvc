@@ -72,11 +72,29 @@ public class BookController {
 		}
 		
 	}
-	@PatchMapping("/{id}")
+	@PatchMapping("/{id}/price")
 	public ResponseEntity<ApiResponse<Book>> updateBookPrice(@PathVariable Integer id, @RequestBody Book book) {
 		try {
 			service.updateBookPrice(id, book.getPrice());
 			return ResponseEntity.ok(ApiResponse.success("修改書籍價格成功", book));
+		} catch (BookException e) {
+			return ResponseEntity.badRequest().body(ApiResponse.error(e.getMessage()));
+		}
+	} 
+	@PatchMapping("/{id}/name")
+	public ResponseEntity<ApiResponse<Book>> updateBookName(@PathVariable Integer id, @RequestBody Book book) {
+		try {
+			service.updateBookName(id, book.getName());
+			return ResponseEntity.ok(ApiResponse.success("修改書籍名稱成功", book));
+		} catch (BookException e) {
+			return ResponseEntity.badRequest().body(ApiResponse.error(e.getMessage()));
+		}
+	} 
+	@PatchMapping("/{id}/price-name")
+	public ResponseEntity<ApiResponse<Book>> updateBookNameAndPrice(@PathVariable Integer id, @RequestBody Book book) {
+		try {
+			service.updateBookNameAndPrice(id, book.getName(), book.getPrice());
+			return ResponseEntity.ok(ApiResponse.success("修改書籍名稱價格成功", book));
 		} catch (BookException e) {
 			return ResponseEntity.badRequest().body(ApiResponse.error(e.getMessage()));
 		}
