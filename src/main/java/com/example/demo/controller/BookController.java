@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -71,4 +72,13 @@ public class BookController {
 		}
 		
 	}
+	@PatchMapping("/{id}")
+	public ResponseEntity<ApiResponse<Book>> updateBookPrice(@PathVariable Integer id, @RequestBody Book book) {
+		try {
+			service.updateBookPrice(id, book.getPrice());
+			return ResponseEntity.ok(ApiResponse.success("修改書籍價格成功", book));
+		} catch (BookException e) {
+			return ResponseEntity.badRequest().body(ApiResponse.error(e.getMessage()));
+		}
+	} 
 }
