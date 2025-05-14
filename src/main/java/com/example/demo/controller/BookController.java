@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -47,6 +48,15 @@ public class BookController {
 			service.addBook(book);
 			return ResponseEntity.ok(ApiResponse.success("新增成功", book));
 		} catch (BookException e) {
+			return ResponseEntity.badRequest().body(ApiResponse.error(e.getMessage()));
+		}
+	}
+	@DeleteMapping("/{id}")
+	public ResponseEntity<ApiResponse<Book>> deleteBookById(@PathVariable Integer id) {
+		try {
+			service.deleteBook(id);
+			return ResponseEntity.ok(ApiResponse.success("刪除成功", null));
+		}catch(BookException e) {
 			return ResponseEntity.badRequest().body(ApiResponse.error(e.getMessage()));
 		}
 	}
