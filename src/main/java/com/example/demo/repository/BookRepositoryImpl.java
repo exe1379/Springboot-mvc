@@ -54,6 +54,4 @@ public class BookRepositoryImpl implements BookRepository {
 		}
 		return false;
 	}
-	
-	
 }

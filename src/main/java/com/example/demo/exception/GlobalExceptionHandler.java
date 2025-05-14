@@ -24,7 +24,7 @@ public class GlobalExceptionHandler {
 				errorMessage = "查無網頁(" + e.getClass().getSimpleName() + ")";
 				break;
 		}	
-		ApiResponse<Object> apiResponse = ApiResponse.error(400,errorMessage);
+		ApiResponse<Object> apiResponse = ApiResponse.error(errorMessage);
 		return ResponseEntity.badRequest().body(apiResponse);
 	}
 }

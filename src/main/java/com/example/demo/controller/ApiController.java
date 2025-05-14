@@ -57,7 +57,7 @@ public class ApiController {
 	public ResponseEntity<ApiResponse<BMI>> calcBmi(@RequestParam(required = false) Double h, 
 						            @RequestParam(required = false) Double w) {
 		if(h == null || w == null) {
-			return ResponseEntity.badRequest().body(ApiResponse.error(400, "請提供身高(h)或體重(w)"));
+			return ResponseEntity.badRequest().body(ApiResponse.error("請提供身高(h)或體重(w)"));
 		}
 		double bmi = w / Math.pow(h/100, 2);
 		return ResponseEntity.ok(ApiResponse.success("BMI 計算成功", new BMI(h, w, bmi)));
@@ -175,7 +175,7 @@ public class ApiController {
 		Optional<Book> optBook = books.stream().filter(book -> book.getId().equals(id)).findFirst();
 		// 判斷是否有找到
 		if(optBook.isEmpty()) {
-			return ResponseEntity.badRequest().body(ApiResponse.error(400,"查無此書"));
+			return ResponseEntity.badRequest().body(ApiResponse.error("查無此書"));
 		}
 		Book book = optBook.get(); // 取得書籍
 		return ResponseEntity.ok(ApiResponse.success("查詢成功", book));
@@ -191,7 +191,7 @@ public class ApiController {
 		);
 		List<Book> queryBooks = books.stream().filter(book -> book.getPub().equals(isPub)).toList();
 		if(queryBooks.isEmpty()) {
-			return ResponseEntity.badRequest().body(ApiResponse.error(400,"查無此書"));
+			return ResponseEntity.badRequest().body(ApiResponse.error("查無此書"));
 		}
 		return ResponseEntity.ok(ApiResponse.success("查詢成功", queryBooks));
 	}
