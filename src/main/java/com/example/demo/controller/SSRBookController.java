@@ -5,9 +5,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.demo.exception.BookException;
@@ -40,7 +42,8 @@ public class SSRBookController {
 		return "redirect:/ssr/book";
 	}
 	
-	@GetMapping("/delete/{id}")
+	//@GetMapping("/delete/{id}")
+	@DeleteMapping("/delete/{id}")
 	public String deleteBook(@PathVariable Integer id, Model model) {
 		try {
 			bookservice.deleteBook(id);
@@ -50,6 +53,7 @@ public class SSRBookController {
 		}
 		return "redirect:/ssr/book";
 	}
+	
 	@GetMapping("/edit/{id}")
 	public String getEditPage(@PathVariable Integer id, Model model) {
 		try {
@@ -64,7 +68,8 @@ public class SSRBookController {
 			}
 	}
 	
-	@PostMapping("/edit/{id}")
+	//@PostMapping("/edit/{id}")
+	@PutMapping("/edit/{id}")
 	public String editBook(@PathVariable Integer id, Book book ,Model model) {
 		try {
 			bookservice.updateBook(id,book);	
