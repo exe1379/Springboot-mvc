@@ -27,7 +27,7 @@ public class BookRepositoryJdbcImpl implements BookRepository {
 
 	@Override
 	public Optional<Book> getBookById(Integer id) {
-		String sql = "select name, price, amount, pub from book where id = ?";
+		String sql = "SELECT id, name, price, amount, pub FROM book WHERE id = ?";
 		// 建立List<Book> books因為jdbcTemplate.query會固定回傳一個List回來
 		// List<Book> books = jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(Book.class), id);
 		// return books.isEmpty() ? Optional.empty() : Optional.of(books.get(0));
